@@ -1,6 +1,6 @@
 Types: deb
 URIs: http://packages.ros.org/ros2/ubuntu
-Suites: $VERSION_CODENAME
+Suites: $SUITE
 Components: main
 Signed-By:
   -----BEGIN PGP PUBLIC KEY BLOCK-----
