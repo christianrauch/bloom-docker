@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build . --tag bloom
+docker build --platform linux/arm64 . --tag bloom
