@@ -9,6 +9,8 @@ RUN apt update
 
 RUN apt -y install --no-install-recommends python3-bloom
 
+RUN rosdep init
+
 # install libcamera build dependencies
 # https://libcamera.org/getting-started.html
 RUN apt -y install --no-install-recommends \
