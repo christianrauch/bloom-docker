@@ -21,3 +21,6 @@ RUN apt update; \
 RUN pip install --upgrade git+https://github.com/christianrauch/bloom.git@meson
 
 RUN rosdep init; rosdep update
+
+COPY ./bloom.sh /
+ENTRYPOINT ["/bloom.sh"]
