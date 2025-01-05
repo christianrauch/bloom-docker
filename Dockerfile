@@ -1,20 +1,21 @@
 FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
-# copy the repos file
-COPY ./ros.sources /etc/apt/sources.list.d/
+RUN apt update; \
+    apt -y install --no-install-recommends gettext-base
 
-RUN apt update
+# copy and configure the ROS repos file
+COPY ./ros.sources.in /tmp
+RUN . /etc/os-release; \
+    export SUITE=$VERSION_CODENAME; \
+    envsubst < /tmp/ros.sources.in > /etc/apt/sources.list.d/ros.sources
 
-RUN apt -y install --no-install-recommends python3-bloom
+RUN apt update; \
+    apt -y install --no-install-recommends python3-bloom python3-pip devscripts equivs wget; \
+    apt -y purge python3-bloom
 
-RUN rosdep init
+RUN pip install --upgrade git+https://github.com/christianrauch/bloom.git@meson
 
-# install libcamera build dependencies
-# https://libcamera.org/getting-started.html
-RUN apt -y install --no-install-recommends \
-    g++ meson ninja-build pkg-config \
-    libyaml-dev python3-yaml python3-ply python3-jinja2 \
-    openssl \
-    libudev-dev libevent-dev libdrm-dev libjpeg-dev libsdl2-dev
+RUN rosdep init; rosdep update
