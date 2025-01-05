@@ -4,7 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 RUN apt update; \
-    apt -y install --no-install-recommends gettext-base
+    apt -y install --no-install-recommends gettext-base; \
+    rm -rf /var/lib/apt/lists/*
 
 # copy and configure the ROS repos file
 COPY ./ros.sources.in /tmp
@@ -14,7 +15,8 @@ RUN . /etc/os-release; \
 
 RUN apt update; \
     apt -y install --no-install-recommends python3-bloom python3-pip devscripts equivs wget; \
-    apt -y purge python3-bloom
+    apt -y purge python3-bloom; \
+    rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade git+https://github.com/christianrauch/bloom.git@meson
 
