@@ -18,7 +18,7 @@ RUN apt update; \
     apt -y purge python3-bloom; \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade git+https://github.com/christianrauch/bloom.git@meson
+RUN pip install --upgrade git+https://github.com/christianrauch/bloom.git@meson_wrap_mode
 
 RUN rosdep init; rosdep update
 
